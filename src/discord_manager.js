@@ -66,31 +66,17 @@ client.on('whatsappMessage', async (message, resolve) => {
 	case 'audio':
 	case 'document':
 	case 'sticker':
-		break;
-		if (message.fileLength.low > 8388284) {
-			await webhook.send({
-				content: 'WA2DC Attention: Received a file, but it\'s over 8MB. Check WhatsApp on your phone.',
-				username: name,
-				avatarURL: await whatsappUtils.getProfilePic(senderJid),
+		await webhook.send({
+			content: 'asd',
+			username: name,
+			avatarURL: await whatsappUtils.getProfilePic(senderJid),
 			});
 			break;
 		}
-		files.push({
-			attachment: await downloadContentFromMessage(message, messageType),
-			name: getFileName(message, messageType),
-		});
-		content += message.caption || '';
+		content += message;
 		break;
-	}
-	if (content || files.length) {
-		await webhook.send({
-			content: content || null,
-			username: name,
-			files: files,
-			avatarURL: await whatsappUtils.getProfilePic(senderJid),
-		});
-	}
-	resolve();
+}	
+
 });
 
 const commands = {
